@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Locator - Discover Local Experiences</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">EventHaven</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="events.html">Events</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+  
+<main class="container my-5">
+    <h2 class="mb-4">UPCOMMING EVENTS</h2>
+    
+    <!-- Sorting Controls -->
+    <div class="d-flex justify-content-between mb-4">
+        <div>
+            <label for="categoryFilter" class="form-label">Filter by Category:</label>
+            <select id="categoryFilter" class="form-select w-auto">
+                <option value="all">All Categories</option>
+                <option value="Music">Music</option>
+                <option value="Technology">Technology</option>
+                <option value="Art">Art</option>
+                <option value="Food & Drink">Food & Drink</option>
+                <option value="Wellness">Wellness</option>
+                <option value="Charity">Charity</option>
+            </select>
+        </div>
+        <div>
+            <label for="sortEvents" class="form-label">Sort by:</label>
+            <select id="sortEvents" class="form-select w-auto">
+                <option value="dateAsc">Date (Ascending)</option>
+                <option value="dateDesc">Date (Descending)</option>
+                <option value="priceAsc">Price (Low to High)</option>
+                <option value="priceDesc">Price (High to Low)</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Event Cards Container -->
+    <div class="row" id="eventContainer">
+        <!-- Event cards will be dynamically inserted here -->
+    </div>
+</main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row g-2">
+                <!-- About Section -->
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3">EventHaven</h5>
+                    <p class="mt-3">Connecting you with the unforgettable events and experiences near you!</p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light text-decoration-none">About Us</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">Contact</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">FAQs</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Social Links -->
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3">Follow Us</h5>
+                    <div class="social-links mt-3">
+                        <a href="#" class="btn btn-outline-light btn-xl me-2" title="Follow us on Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-xl me-2" title="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-xl" title="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Horizontal Divider -->
+            <hr class="mt-2">
+            
+            <!-- Footer Bottom -->
+            <div class="text-center pt-3">
+                <p>&copy; 2025 <strong>EventHaven</strong>. All rights reserved.</p>
+                <p class="text-muted small">Designed with love for local experiences.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
+
+<script src="js/events-data.js"></script>
+<script>
+    // Sample event loading logic
+    const eventContainer = document.getElementById('eventContainer');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const sortEvents = document.getElementById('sortEvents');
+    
+    function formatPrice(price) {
+        return `$${price.toFixed(2)}`;
+    }
+
+    function loadEvents(events) {
+        eventContainer.innerHTML = '';
+        events.forEach(event => {
+            const eventCard = `
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 animate__fadeIn">
+                        <img src="${event.image}" class="card-img-top" alt="${event.title}">
+                        <div class="card-body">
+                            <h5 class="card-title">${event.title}</h5>
+                            <p class="text-muted">${event.date} • ${event.location}</p>
+                            <p class="card-text">${event.description.substring(0, 100)}...</p>
+                            <p class="text-info">Tickets Left: ${event.ticketsLeft}</p>
+                            <p class="text-dark"><strong>Price: ${formatPrice(event.price)}</strong></p>
+                            <a href="event-details.html?id=${event.id}" class="btn btn-dark">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            eventContainer.innerHTML += eventCard;
+        });
+    }
+
+    function filterEvents() {
+        const selectedCategory = categoryFilter.value;
+        const sortedEvents = [...mockEvents]
+            .filter(event => selectedCategory === 'all' || event.category === selectedCategory)
+            .sort((a, b) => {
+                if (sortEvents.value === 'dateAsc') return new Date(a.date) - new Date(b.date);
+                if (sortEvents.value === 'dateDesc') return new Date(b.date) - new Date(a.date);
+                if (sortEvents.value === 'priceAsc') return a.price - b.price;
+                if (sortEvents.value === 'priceDesc') return b.price - a.price;
+                return 0;
+            });
+        loadEvents(sortedEvents);
+    }
+
+    // Initial load of events
+    filterEvents();
+
+    // Event listeners for filters and sorting
+    categoryFilter.addEventListener('change', filterEvents);
+    sortEvents.addEventListener('change', filterEvents);
+</script>
